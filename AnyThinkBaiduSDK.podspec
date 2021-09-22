@@ -14,6 +14,7 @@ Pod::Spec.new do |s|
     s.description      = <<-DESC
     AnyThinkBaiduSDKAnyThinkBaiduSDKAnyThinkBaiduSDKAnyThinkBaiduSDK
                        DESC
+    s.libraries    = 'c++'
 
     s.homepage         = 'https://github.com/toponteam/AnyThinkBaiduSDK'
     s.license          = { :type => 'MIT', :file => 'LICENSE' }
@@ -26,15 +27,12 @@ Pod::Spec.new do |s|
 
     s.vendored_frameworks = 'Baidu/BaiduMobAdSDK.framework'
     s.resource = 'Baidu/baidumobadsdk.bundle'
-
-
+    
     s.weak_frameworks = 'AdSupport', 'AppTrackingTransparency', 'WebKit'
-    s.frameworks = 'StoreKit', 'SystemConfiguration', 'CoreTelephony', 'AVKit', 'AVFoundation', 'CoreMedia','AdSupport','CoreLocation','MessageUI','SafariServices','WebKit'
+    s.frameworks   = 'CoreLocation', 'SystemConfiguration', 'CoreGraphics', 'CoreMotion', 'CoreTelephony', 'AdSupport', 'SystemConfiguration', 'QuartzCore', 'WebKit', 'MessageUI','SafariServices','AVFoundation','EventKit','QuartzCore','CoreMedia','StoreKit'
 
     s.xcconfig = { "OTHER_LDFLAGS" => "-ObjC" }
-    s.user_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64' }
-    s.pod_target_xcconfig = {
-       'VALID_ARCHS' => '$(ARCHS_STANDARD_64_BIT) armv7',
-       'ENABLE_BITCODE' => 'NO',
-    }
+    s.pod_target_xcconfig = { 'VALID_ARCHS' => 'x86_64 armv7 armv7s arm64' }
+
+  
 end
