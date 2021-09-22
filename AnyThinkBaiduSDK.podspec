@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
     s.name             = 'AnyThinkBaiduSDK'
-    s.version          = '4.8.1'
+    s.version          = '4.82'
     s.summary          = 'AnyThinkBaiduSDK'
 
     s.description      = <<-DESC
@@ -29,7 +29,7 @@ Pod::Spec.new do |s|
 
 
     s.weak_frameworks = 'AdSupport', 'AppTrackingTransparency', 'WebKit'
-    s.frameworks = 'StoreKit', 'SystemConfiguration', 'CoreTelephony', 'AVKit', 'AVFoundation', 'CoreMedia'
+    s.frameworks = 'StoreKit', 'SystemConfiguration', 'CoreTelephony', 'AVKit', 'AVFoundation', 'CoreMedia','AdSupport','CoreLocation','MessageUI','SafariServices','WebKit'
 
     s.xcconfig = { "OTHER_LDFLAGS" => "-ObjC" }
     s.user_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64' }
