@@ -53,6 +53,12 @@
 @property (nonatomic, assign) BOOL useSkipAlertView;
 
 /**
+ * 设置底价过滤，支持客户端与服务端bidding配置
+ * 仅支持整数值，单位：分
+ */
+@property (nonatomic, assign) int bidFloor;
+
+/**
  *  预加载视频广告，并缓存物料信息到本地。
  *  注意广告的展示存在有效期，单次检索后须在一定时间内展示在页面上
  */
@@ -80,5 +86,34 @@
  *  广告价格标签
  */
 - (NSString *)getECPMLevel;
+
+/**
+ * 反馈竞价成功及二价
+ * @param secondPrice 第二价格
+ */
+- (void)biddingSuccess:(NSString *)secondPrice;
+
+/**
+ * 反馈竞价失败及原因
+ * @param reason 失败原因
+ */
+- (void)biddingFail:(NSString *)reason;
+
+/**
+ * 获取Bidding token
+ * @return 媒体ADX请求广告所需的token
+ */
+- (NSString *)getBiddingToken;
+
+/**
+ * 请求bidding广告
+ * @param bidId 媒体传入，竞价成功的广告id
+ */
+- (void)loadBiddingAd:(NSString *)bidId;
+
+#pragma mark - DEPRECATED_ATTRIBUTE
+
+- (void)setBiddingData:(NSString *)data BaiduMobAdDEPRECATED_MSG("已废弃，请接入最新的服务端bidding渲染方式");
+
 
 @end

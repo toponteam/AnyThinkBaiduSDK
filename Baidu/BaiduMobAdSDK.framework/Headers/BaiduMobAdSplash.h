@@ -14,7 +14,7 @@
 /**
  *  委托对象
  */
-@property (nonatomic, weak) id<BaiduMobAdSplashDelegate> delegate;
+@property (nonatomic, weak) id <BaiduMobAdSplashDelegate> delegate;
 
 
 /**
@@ -48,20 +48,15 @@
 @property (nonatomic, weak) UIViewController *presentAdViewController;
 
 /**
- * 是否开启部分区域可点击，默认不限制
- */
-@property (nonatomic, assign) BOOL enableAreaClick;
-
-/**
- * 是否显示点击区域 ，默认不显示，
- * 限制点击区域后默认开启，不可隐藏
- */
-@property (nonatomic, assign) BOOL displayAreaClick;
-
-/**
  * 设置摇一摇图片的尺寸高或宽，默认69pt
  */
 @property (nonatomic, assign) CGFloat shakeImageViewSize;
+
+/**
+ * 设置底价过滤，支持客户端与服务端bidding配置
+ * 仅支持整数值，单位：分
+ */
+@property (nonatomic, assign) int bidFloor;
 
 /**
  *  请求并展示开屏广告，广告尺寸以传入window大小为准
@@ -101,8 +96,37 @@
 - (NSString *)getECPMLevel;
 
 /**
- * 销毁开屏视频播放器
+ * 反馈竞价成功及二价
+ * @param secondPrice 第二价格
+ */
+- (void)biddingSuccess:(NSString *)secondPrice;
+
+/**
+ * 反馈竞价失败及原因
+ * @param reason 失败原因
+ */
+- (void)biddingFail:(NSString *)reason;
+
+/**
+ * 获取Bidding token
+ * @return 媒体ADX请求广告所需的token
+ */
+- (NSString *)getBiddingToken;
+
+/**
+ * 请求bidding广告
+ * @param bidId 媒体传入，竞价成功的广告id
+ */
+- (void)loadBiddingAd:(NSString *)bidId;
+
+/**
+ * 销毁开屏，释放资源
  */
 - (void)stop;
+
+#pragma mark - DEPRECATED_ATTRIBUTE
+
+- (void)setBiddingData:(NSString *)data BaiduMobAdDEPRECATED_MSG("已废弃，请接入最新的服务端bidding渲染方式");
+
 
 @end

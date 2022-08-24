@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
     s.name             = 'AnyThinkBaiduSDK'
-    s.version          = '4.82'
+    s.version          = '4.891'
     s.summary          = 'AnyThinkBaiduSDK'
 
     s.description      = <<-DESC

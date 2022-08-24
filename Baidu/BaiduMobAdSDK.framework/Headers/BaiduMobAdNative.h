@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "BaiduMobAdNativeAdDelegate.h"
 #import "BaiduMobAdFeedRequestParameters.h"
+#import "BaiduMobAdNativeInterationDelegate.h"
 
 @class BaiduMobAdNativeAdView;
 
@@ -20,14 +21,15 @@
 @property(nonatomic, copy) NSString *publisherId;
 
 /**
- *  设置/获取代码位id
+ *  设置/获取代码位(广告位)id
  */
-@property(nonatomic, copy) NSString *adId;
+@property (nonatomic, copy) NSString *adUnitTag;
 
+#warning 注意！！接入变更：信息流广告原有delegate已经废弃，广告请求和行为delegate拆分为两个adDelegate和InterationDelegate
 /**
- * 原生广告delegate
+ * 广告请求 delegate
  */
-@property (nonatomic, weak) id<BaiduMobAdNativeAdDelegate> delegate;
+@property (nonatomic, weak) id<BaiduMobAdNativeAdDelegate> adDelegate;
 
 /**
  * 针对视频缓存delegate
@@ -66,20 +68,52 @@
 @property (nonatomic, assign) BaiduMobAdType adType;
 
 /**
- *  请求原生广告
+ * 信息流传参
+ */
+@property (nonatomic, strong) BaiduMobAdFeedRequestParameters *requestParameters;
+
+/**
+ * 设置底价过滤，支持客户端与服务端bidding配置
+ * 仅支持整数值，单位：分
+ */
+@property (nonatomic, assign) int bidFloor;
+
+/**
+ * 是否请求优选模板广告，默认请求元素广告
+ */
+@property (nonatomic, assign) BOOL isExpressNativeAds;
+
+/**
+ *  请求信息流广告
  *  注意广告的展示存在有效期，单次检索后须在一定时间内展示在页面上
  */
 - (void)requestNativeAds;
 
 /**
- *带参数请求原生广告
- *注意广告的展示存在有效期，单次检索后须在一定时间内展示在页面上
-*/
-- (void)requestNativeAdsWithParameters:(BaiduMobAdFeedRequestParameters *)requestParameters;
-
-/**
  *  预加载视频素材  如果有多条素材会在所以素材均缓存完毕后回调nativeVideoAdCacheSuccess
  */
 - (void)preloadVideoMaterial;
+
+/**
+ * 获取Bidding token
+ * @return 媒体ADX请求广告所需的token
+ */
+- (NSString *)getBiddingToken;
+
+/**
+ * 请求bidding广告
+ * @param bidId 媒体传入，竞价成功的广告id
+ */
+- (void)loadBiddingAd:(NSString *)bidId;
+
+#pragma mark - DEPRECATED_ATTRIBUTE
+
+- (void)setBiddingData:(NSString *)data BaiduMobAdDEPRECATED_MSG("已废弃，请接入最新的服务端bidding渲染方式");
+
+@property (nonatomic, copy) NSString *adId BaiduMobAdDEPRECATED_MSG("已废弃，请及时替换AdUnitTag使用方式");
+
+- (void)requestNativeAdsWithParameters:(BaiduMobAdFeedRequestParameters *)requestParameters BaiduMobAdDEPRECATED_MSG("已废弃，请及时参考Demo修改使用方式");
+
+- (void)requestExpressNativeAds BaiduMobAdDEPRECATED_MSG("已废弃，请及时替换isExpressNativeAds使用方式");
 
 @end

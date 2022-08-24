@@ -11,6 +11,7 @@
 @class BaiduMobAdNative;
 @class BaiduMobAdNativeAdView;
 @class BaiduMobAdNativeAdObject;
+@class BaiduMobAdExpressNativeView;
 
 @protocol BaiduMobAdNativeAdDelegate <NSObject>
 
@@ -47,55 +48,23 @@
 
 /**
  * 广告请求成功
- * 请求成功的BaiduMobAdNativeAdObject数组，如果只成功返回一条原生广告，数组大小为1
+ * 请求成功的数组，如果只成功返回一条原生广告，数组大小为1
+ * 注意：如果是返回元素，nativeAds为BaiduMobAdNativeAdObject数组。如果是优选模板，nativeAds为BaiduMobAdExpressNativeView数组
  */
 - (void)nativeAdObjectsSuccessLoad:(NSArray *)nativeAds nativeAd:(BaiduMobAdNative *)nativeAd;
 
 /**
  *  广告请求失败
- *  失败的类型 BaiduMobFailReason
  */
-- (void)nativeAdsFailLoad:(BaiduMobFailReason)reason nativeAd:(BaiduMobAdNative *)nativeAd;
-
-/**
- *  广告曝光成功
- */
-- (void)nativeAdExposure:(UIView *)nativeAdView nativeAdDataObject:(BaiduMobAdNativeAdObject *)object;
-
-/**
- *  广告曝光失败
- */
-- (void)nativeAdExposureFail:(UIView *)nativeAdView
-          nativeAdDataObject:(BaiduMobAdNativeAdObject *)object
-                  failReason:(int)reason;
-
-/**
- *  广告点击
- */
-- (void)nativeAdClicked:(UIView *)nativeAdView nativeAdDataObject:(BaiduMobAdNativeAdObject *)object;
-
-/**
- *  广告详情页关闭
- */
-- (void)didDismissLandingPage:(UIView *)nativeAdView;
-
-/**
- *  联盟官网点击跳转
- */
-- (void)unionAdClicked:(UIView *)nativeAdView nativeAdDataObject:(BaiduMobAdNativeAdObject *)object;
-
-/**
- * 智能优选负反馈的选择
- */
-- (void)smartFeedbackSelectedWithObject:(BaiduMobAdNativeAdObject *)object;
+- (void)nativeAdsFailLoadCode:(NSString *)errCode
+                      message:(NSString *)message
+                     nativeAd:(BaiduMobAdNative *)nativeAd;
 
 #pragma mark - Deprecated
 
-- (void)nativeAdObjectsSuccessLoad:(NSArray *)nativeAds BaiduMobAdDEPRECATED_MSG("已废弃，请使用nativeAdObjectsSuccessLoad:nativeAd:");
+- (void)smartFeedbackSelectedWithObject:(BaiduMobAdNativeAdObject *)object BaiduMobAdDEPRECATED_MSG("已废弃，请使用nativeAdDislikeClick:");
 
-- (void)nativeAdsFailLoad:(BaiduMobFailReason)reason BaiduMobAdDEPRECATED_MSG("已废弃，请使用nativeAdsFailLoad:nativeAd:");
-
-- (void)nativeAdClicked:(UIView *)nativeAdView BaiduMobAdDEPRECATED_MSG("已废弃，请使用nativeAdClicked:nativeAdDataObject:");
+- (void)nativeAdsFailLoad:(BaiduMobFailReason)reason nativeAd:(BaiduMobAdNative *)nativeAd BaiduMobAdDEPRECATED_MSG("已废弃，请使用nativeAdsFailLoadCode:message:nativeAd:");
 
 @end
 

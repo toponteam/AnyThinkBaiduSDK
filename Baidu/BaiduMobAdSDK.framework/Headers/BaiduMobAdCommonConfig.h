@@ -9,7 +9,7 @@
 #ifndef BaiduMobAdSdk_BaiduMobAdCommonConfig_h
 #define BaiduMobAdSdk_BaiduMobAdCommonConfig_h
 // SDK版本号
-#define SDK_VERSION_IN_MSSP @"4.82"
+#define SDK_VERSION_IN_MSSP @"4.891"
 
 typedef void (^BaiduMobAdViewCompletionBlock)(NSArray *errors);
 
@@ -17,7 +17,8 @@ typedef enum {
     BaiduMobAdTypeFeed = 0, // 默认 请求普通信息流广告
     BaiduMobAdTypePortrait = 1,  // 竖版视频广告
     BaiduMobAdTypeRewardVideo = 2,  // 激励视频
-    BaiduMobAdTypeFullScreenVideo = 3   // 全屏视频
+    BaiduMobAdTypeFullScreenVideo = 3,   // 全屏视频
+    BaiduMobAdTypeExpressInterstitial = 4   // 模板插屏
 } BaiduMobAdType;
 
 typedef enum {
@@ -28,9 +29,9 @@ typedef enum {
 } BaiduMobMaterialType;
 
 typedef enum {
-    BaiduMobNativeAdActionTypeLP = 1,
-    BaiduMobNativeAdActionTypeDL = 2,
-    BaiduMobNativeAdActionTypeDeepLink = 512
+    BaiduMobNativeAdActionTypeLP = 1,   // 落地页广告
+    BaiduMobNativeAdActionTypeDL = 2,   // 下载类广告
+    BaiduMobNativeAdActionTypeDeepLink = 512    // 唤醒类广告
 } BaiduMobNativeAdActionType;
 
 typedef enum {
@@ -50,7 +51,9 @@ typedef enum {
     onCacheFail,//视频缓存失败
     onCacheExpire, //广告过期
     onReplay, //重播
-    onPlayEnd // 播放终止，横、竖版视频
+    onPlayEnd, // 播放终止，横、竖版视频
+    onMute, // 静音按钮点击
+    onReady // 准备播放
     
 } BaiduAdNativeVideoEvent;
 
@@ -98,7 +101,8 @@ typedef NS_ENUM(NSInteger, BaiduMobAdSmartFeedStyleType) {
     FeedType_RIGHT_PIC = 34,//右图左文
     FeedType_GROUP_PIC = 35,//三图图文
     FeedType_GROUP_PIC_LOGO = 36,//三图图文+logo
-    FeedType_VIDEO_TOP_TITLE = 37//视频+文字
+    FeedType_VIDEO_TOP_TITLE = 37, //横版视频+文字
+    FeedType_PORTRAIT_VIDEO = 41 // 竖版视频
 };
 
 /**
@@ -121,11 +125,16 @@ typedef enum {
 /**
  * 用户选择的反馈原因
  */
-typedef NS_ENUM(NSInteger, BaiduMobAdChoosedReason) {
-    content_dislike = 1, // 不感兴趣
-    content_vulgar, // 内容低俗
-    content_spam, // 垃圾内容
-    content_recommendation // 重复推荐
+typedef NS_ENUM(NSInteger, BaiduMobAdDislikeReasonType) {
+    BaiduMobAdDislikeReasonCancel = -1, // 取消点击
+    BaiduMobAdDislikeReasonUnlike = 0, // 不感兴趣
+    BaiduMobAdDislikeReasonLowQuality, // 内容质量差
+    BaiduMobAdDislikeReasonRepeatRecommend, // 推荐重复
+    BaiduMobAdDislikeReasonVulgarPornography, // 低俗色情
+    BaiduMobAdDislikeReasonViolatingLaws, // 违法违规
+    BaiduMobAdDislikeReasonFake, // 虚假欺诈
+    BaiduMobAdDislikeReasonInducedClick, // 诱导点击
+    BaiduMobAdDislikeReasonSuspectedPlagiarism // 疑似抄袭
 };
 
 /**
